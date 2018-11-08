@@ -14,14 +14,28 @@
  * limitations under the License.
  */
 
-package template.android.adapters;
+package template.android.support.nanohttpd;
 
 import org.nanohttpd.protocols.http.IHTTPSession;
 import org.nanohttpd.protocols.http.response.Response;
+import org.nanohttpd.protocols.websockets.NanoWSD;
 
-public interface NanoWSDInterface {
+public class NanoWSDAdapter extends NanoWSD {
+    
+    private final NanoWSDInterface impl;
 
-    Response serve(IHTTPSession session, NanoWSDAdapter adapter);
+    public NanoWSDAdapter(NanoWSDInterface impl, String hostname, int port) {
+        super(hostname, port);
+        this.impl = impl;
+    }
 
-    WebSocketAdapter openWebSocket(IHTTPSession handshake, NanoWSDAdapter adapter);
+    @Override
+    protected Response serve(IHTTPSession session) {
+        return impl.serve(session, this);
+    }
+
+    @Override
+    protected WebSocketAdapter openWebSocket(IHTTPSession handshake) {
+        return impl.openWebSocket(handshake, this);
+    }
 }

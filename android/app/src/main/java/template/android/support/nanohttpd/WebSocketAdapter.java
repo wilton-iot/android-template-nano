@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package template.android.adapters;
+package template.android.support.nanohttpd;
 
 import java.io.IOException;
 import org.nanohttpd.protocols.http.IHTTPSession;

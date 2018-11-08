@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package template.android.adapters;
+package template.android.support.nanohttpd;
 
-import java.io.IOException;
-import org.nanohttpd.protocols.websockets.CloseCode;
-import org.nanohttpd.protocols.websockets.WebSocketFrame;
+import org.nanohttpd.protocols.http.IHTTPSession;
+import org.nanohttpd.protocols.http.response.Response;
 
-public interface WebSocketInterface {
+public interface NanoWSDInterface {
 
-    void onOpen(WebSocketAdapter adapter);
+    Response serve(IHTTPSession session, NanoWSDAdapter adapter);
 
-    void onClose(CloseCode code, String reason, boolean initiatedByRemote, WebSocketAdapter adapter);
-
-    void onMessage(WebSocketFrame message, WebSocketAdapter adapter);
-
-    void onPong(WebSocketFrame pong, WebSocketAdapter adapter);
-
-    void onException(IOException exception, WebSocketAdapter adapter);
+    WebSocketAdapter openWebSocket(IHTTPSession handshake, NanoWSDAdapter adapter);
 }

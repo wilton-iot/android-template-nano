@@ -63,8 +63,8 @@ define([
 
     function createWebSocket(handshake) {
         if (isAndroid) {
-            var WebSocketAdapter = Packages.template.android.adapters.WebSocketAdapter;
-            var WebSocketInterface = Packages.template.android.adapters.WebSocketInterface;
+            var WebSocketAdapter = Packages.template.android.support.nanohttpd.WebSocketAdapter;
+            var WebSocketInterface = Packages.template.android.support.nanohttpd.WebSocketInterface;
             return new WebSocketAdapter(new WebSocketInterface(websocket), handshake);
         } else {
             return new JavaAdapter(WebSocket, websocket, handshake);
@@ -82,8 +82,8 @@ define([
 
     function createNanoWSD(hostname, port) {
         if (isAndroid) {
-            var NanoWSDAdapter = Packages.template.android.adapters.NanoWSDAdapter;
-            var NanoWSDInterface = Packages.template.android.adapters.NanoWSDInterface;
+            var NanoWSDAdapter = Packages.template.android.support.nanohttpd.NanoWSDAdapter;
+            var NanoWSDInterface = Packages.template.android.support.nanohttpd.NanoWSDInterface;
             return new NanoWSDAdapter(new NanoWSDInterface(nanowsd), hostname, port);
         } else {
             return new JavaAdapter(NanoWSD, nanowsd, hostname, port);
