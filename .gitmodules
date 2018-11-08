@@ -1,0 +1,12 @@
+[submodule "tools/gradle"]
+	path = tools/gradle
+	url = https://github.com/wilton-iot/tools_gradle.git
+[submodule "tools/sdk"]
+	path = tools/sdk
+	url = https://github.com/wilton-iot/tools_android_sdk.git
+[submodule "tools/adb"]
+	path = tools/adb
+	url = https://github.com/wilton-iot/tools_android_adb.git
+[submodule "tools/libc6_2.15"]
+	path = tools/libc6_2.15
+	url = https://github.com/wilton-iot/tools_android_libc6_2.15.git

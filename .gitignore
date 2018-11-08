@@ -1,0 +1,6 @@
+/nbproject
+/android/app/src/main/assets/*.zip
+/android/.gradle
+/android/build
+/android/app/build
+/work

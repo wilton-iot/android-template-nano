@@ -1,0 +1,62 @@
+
+/* custom css goes here */
+
+/* splash-screen utility */
+.template-absolute {
+    position: absolute;
+}
+
+/* positioning */
+.template-top-zero {
+    top: 0;
+}
+
+.template-bottom-zero {
+    bottom: 0;
+}
+
+/* icon next to text */
+.template-img-inline-15 {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.template-img-inline-20 {
+    height: 2.0rem;
+    width: 2.0rem;
+}
+
+.template-img-inline-25 {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.template-img-inline-35 {
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+/* fade anumation */
+.template-fade-enter-active, .template-fade-leave-active {
+    transition-property: opacity;
+    transition-duration: .20s;
+}
+
+.template-fade-enter-active {
+    transition-delay: .20s;
+}
+
+.template-fade-enter, .template-fade-leave-active {
+    opacity: 0
+}
+
+/* progress bar */
+.template-progress {
+    height: 2em !important;
+}
+
+/* buttons no focus */
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}

@@ -1,0 +1,10 @@
+{
+    "txt": "text/plain",
+    "json": "application/json",
+    "js": "text/javascript",
+    "css": "text/css",
+    "html": "text/html",
+    "png": "image/png",
+    "jpg": "image/jpeg",
+    "svg": "image/svg+xml"
+}
