@@ -16,7 +16,7 @@
 
 define([
     // template
-    "template/utils/checkProperties",
+    "./utils/checkProperties",
     "./backendcall",
     "./isAndroid",
     "./runOnRhinoThread",

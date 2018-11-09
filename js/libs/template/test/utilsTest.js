@@ -16,10 +16,10 @@
 
 define([
     "./assert",
-    "template/utils/listProperties",
-    "template/utils/checkProperties",
-    "template/utils/shortModuleId",
-    "template/utils/formatError"
+    "../utils/listProperties",
+    "../utils/checkProperties",
+    "../utils/shortModuleId",
+    "../utils/formatError"
 ], function(assert, listProperties, checkProperties, shortModuleId, formatError) {
     "use strict";
 

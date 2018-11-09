@@ -32,4 +32,7 @@ dependencies {
     implementation files('../../lib/nanohttpd-c28fa4c8e6.jar')
     implementation files('../../lib/nanohttpd-websocket-c28fa4c8e6.jar')
     implementation files('../../lib/rhino-1.7.7.1.jar')
+    implementation ('org.eclipse.jgit:org.eclipse.jgit:3.7.1.201504261725-r') {
+        exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
+    }
 }

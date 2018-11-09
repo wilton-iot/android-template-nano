@@ -3,4 +3,5 @@
 /android/.gradle
 /android/build
 /android/app/build
+/git-credentials.txt
 /work

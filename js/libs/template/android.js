@@ -15,17 +15,21 @@
  */
 
 define([
-    "template/utils/formatError",
+    "./utils/formatError",
+    "./appdir",
     "./Server"
-], function(formatError, Server) {
+], function(formatError, appdir, Server) {
     "use strict";
 
-    var Log = Packages.android.util.Log;
-    var MainActivity = Packages.template.android.MainActivity;
     var Process = Packages.android.os.Process;
+    var Log = Packages.android.util.Log;
+    var View = Packages.android.view.View;
+    var WebViewClient = Packages.android.webkit.WebViewClient;
+
+    var MainActivity = Packages.template.android.MainActivity;
+    var R = Packages.template.android.R;
 
     var mainActivity = MainActivity.INSTANCE;
-    var appdir = mainActivity.getExternalFilesDir(null).getAbsolutePath() + "/";
 
     function runOnUiThread(fun) {
         mainActivity.runOnUiThread(function() {
@@ -41,17 +45,17 @@ define([
 
     function hideSplash() {
         runOnUiThread(function() {
-            var splash = mainActivity.findViewById(Packages.template.android.R.id.loading_splash);
-            splash.setVisibility(Packages.android.view.View.GONE);
+            var splash = mainActivity.findViewById(R.id.loading_splash);
+            splash.setVisibility(View.GONE);
         });
     }
 
     function initWebView() {
         runOnUiThread(function() {
             // init webview
-            var webView = mainActivity.findViewById(Packages.template.android.R.id.activity_main_webview);
+            var webView = mainActivity.findViewById(R.id.activity_main_webview);
             // Force links and redirects to open in the WebView instead of in a browser
-            webView.setWebViewClient(new Packages.android.webkit.WebViewClient());
+            webView.setWebViewClient(new WebViewClient());
             webView.getSettings().setJavaScriptEnabled(true);
             webView.loadUrl("http://127.0.0.1:8080/web/index.html");
         });

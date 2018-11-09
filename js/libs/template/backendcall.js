@@ -15,7 +15,7 @@
  */
 
 define([
-    "template/utils/formatError"
+    "./utils/formatError"
 ], function(formatError) {
     "use strict";
 

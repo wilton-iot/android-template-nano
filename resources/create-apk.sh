@@ -17,6 +17,13 @@
 set -e
 set -x
 
+# options, set them in local env
+#export ANDROIDDEV_GIT_ENABLE=true
+#export ANDROIDDEV_GIT_URL=git+ssh://androiddev@192.168.1.1:app
+#export ANDROIDDEV_GIT_PASSWORD=secret
+#export ANDROIDDEV_GIT_BRANCH=dev
+#export ANDROIDDEV_LIBC_PRELOAD=true
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APP_DIR="$SCRIPT_DIR"/..
 
@@ -24,17 +31,30 @@ APP_DIR="$SCRIPT_DIR"/..
 rm -rf $APP_DIR/android/.gradle
 rm -rf $APP_DIR/android/build
 rm -rf $APP_DIR/android/app/build
-
-# prepare assets
-pushd $APP_DIR
 rm -f $APP_DIR/android/app/src/main/assets/template.android.zip
-zip -qr $APP_DIR/android/app/src/main/assets/template.android.zip js web
+
+pushd $APP_DIR/work
+# prepare assets
+if [ "xtrue" == "x$ANDROIDDEV_GIT_ENABLE" ] ; then
+    echo $ANDROIDDEV_GIT_URL > git-credentials.txt
+    echo $ANDROIDDEV_GIT_PASSWORD >> git-credentials.txt
+    echo $ANDROIDDEV_GIT_BRANCH >> git-credentials.txt
+    rm -f initAndroidGit.js
+    ln -s ../js/initAndroidGit.js
+    zip -qr $APP_DIR/android/app/src/main/assets/template.android.zip initAndroidGit.js git-credentials.txt
+else
+    rm -f app
+    ln -s .. app
+    zip -qr $APP_DIR/android/app/src/main/assets/template.android.zip app/js app/web
+fi
 popd
 
 # create apk
 pushd $APP_DIR/android
 
-export LD_LIBRARY_PATH=$APP_DIR/tools/libc6_2.15/lib/x86_64-linux-gnu/
+if [ "xtrue" == "x$ANDROIDDEV_LIBC_PRELOAD" ] ; then
+    export LD_LIBRARY_PATH=$APP_DIR/tools/libc6_2.15/lib/x86_64-linux-gnu/
+fi
 export ANDROID_HOME=$APP_DIR/tools/sdk
 $APP_DIR/tools/gradle/bin/gradle \
         -Dorg.gradle.java.home=$JAVA_HOME \

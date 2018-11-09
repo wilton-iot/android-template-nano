@@ -15,8 +15,13 @@
  */
 
 (function(){
-    // get app directory
-    var appdir = Packages.template.android.MainActivity.INSTANCE.getExternalFilesDir(null);
+
+    var File = Packages.java.io.File;
+    var MainActivity = Packages.template.android.MainActivity;
+
+    // app directory
+    var filesDir = MainActivity.INSTANCE.getExternalFilesDir(null);
+    var appdir = new File(filesDir, "app").getAbsolutePath();
 
     load(appdir  + "/js/requireConfig.js");
     requireConfig(appdir);

@@ -119,13 +119,17 @@ public class MainActivity extends Activity {
         RHINO_SCOPE.put("load", RHINO_SCOPE, loadFunc);
         RHINO_SCOPE.setAttributes("load", ScriptableObject.DONTENUM);
 
+        // find startup script
+        File initScriptGit = new File(filesDir, "initAndroidGit.js");
+        File initScriptBundled = new File(filesDir, "app/js/initAndroid.js");
+        File initScript = initScriptGit.exists() ? initScriptGit : initScriptBundled;
+
         // run startup script
-        File file = new File(filesDir, "js/initAndroid.js");
         InputStream is = null;
         try {
-            is = new FileInputStream(file);
+            is = new FileInputStream(initScript);
             Reader reader = new InputStreamReader(is, "UTF-8");
-            RHINO_CONTEXT.evaluateReader(RHINO_SCOPE, reader, file.getAbsolutePath(), 1, null);
+            RHINO_CONTEXT.evaluateReader(RHINO_SCOPE, reader, initScript.getAbsolutePath(), 1, null);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
