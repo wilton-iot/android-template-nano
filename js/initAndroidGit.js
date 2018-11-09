@@ -24,11 +24,15 @@
     var Array = Packages.java.lang.reflect.Array;
     var Character = Packages.java.lang.Character;
     var System = Packages.java.lang.System;
+
+    var Log = Packages.android.util.Log;
+
     var Git = Packages.org.eclipse.jgit.api.Git;
     var SetupUpstreamMode = Packages.org.eclipse.jgit.api.CreateBranchCommand.SetupUpstreamMode;
     var Constants = Packages.org.eclipse.jgit.lib.Constants;
     var FileRepositoryBuilder = Packages.org.eclipse.jgit.storage.file.FileRepositoryBuilder;
     var SshSessionFactory = Packages.org.eclipse.jgit.transport.SshSessionFactory;
+
     var PasswordSshSessionFactory = Packages.template.android.support.jgit.PasswordSshSessionFactory;
     var MainActivity = Packages.template.android.MainActivity;
 
@@ -87,6 +91,10 @@
         };
     }
 
+    function print(msg) {
+        Log.i("template.android", String(msg));
+    }
+
     function gitCheckout(url, passwd, branch, appdirPath) {
         // JGit setup for SSH
         var sf = new PasswordSshSessionFactory(passwd).withStrictHostKeyChecking(false);
@@ -95,6 +103,7 @@
         // git clone app
         var appdir = new File(appdirPath);
         if (!(appdir.exists() && appdir.isDirectory())) {
+            print("Performing git clone, url: [" + url + "] ...");
             Git.cloneRepository()
                     .setURI(url)
                     .setDirectory(appdir)
@@ -109,6 +118,7 @@
         var git = new Git(repo);
 
         // git checkout
+        print("Performing git checkout, branch: [" + branch + "] ...");
         git.checkout()
                 .setName(branch)
                 .setUpstreamMode(SetupUpstreamMode.SET_UPSTREAM)
@@ -116,11 +126,13 @@
                 .call();
 
         // git update
+        print("Performing git update ...");
         git.pull().call();
 
         // show revision
         var revision = repo.resolve(Constants.HEAD);
-        MainActivity.INSTANCE.showMessage("git: " + revision.name());
+        print("Git update complete, revision: [" + revision.name() + "]");
+        // MainActivity.INSTANCE.showMessage("git: " + revision.name());
 
         // close repo
         repo.close();
@@ -139,7 +151,6 @@
     var creds = parseCredentials(credsStr, credsPath);
 
     // perform checkout
-    System.out.println("Performing git checkout from URL: [" + creds.url + "], branch: [" + creds.branch + "]");
     gitCheckout(creds.url, creds.password, creds.branch, appdir);
 
     // start application
