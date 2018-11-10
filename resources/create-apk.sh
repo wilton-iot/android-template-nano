@@ -21,7 +21,7 @@ set -x
 #export ANDROIDDEV_GIT_ENABLE=true
 #export ANDROIDDEV_GIT_URL=git+ssh://androiddev@192.168.1.1:app
 #export ANDROIDDEV_GIT_PASSWORD=secret
-#export ANDROIDDEV_GIT_BRANCH=dev
+#export ANDROIDDEV_GIT_BRANCH=master
 #export ANDROIDDEV_LIBC_PRELOAD=true
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -33,6 +33,7 @@ rm -rf $APP_DIR/android/build
 rm -rf $APP_DIR/android/app/build
 rm -f $APP_DIR/android/app/src/main/assets/template.android.zip
 
+mkdir -p $APP_DIR/work
 pushd $APP_DIR/work
 # prepare assets
 if [ "xtrue" == "x$ANDROIDDEV_GIT_ENABLE" ] ; then
