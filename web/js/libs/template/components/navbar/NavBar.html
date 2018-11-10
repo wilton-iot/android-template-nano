@@ -13,14 +13,17 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<div class="h3 row">
-    <div class="col-auto">
+<div class="row h5 mb-0">
+    <div class="col pl-2">
         <img
-            class="template-img-inline-20"
-            v-bind:src="image('menu.svg')">
-            <!--v-on:click.stop.prevent="push('/menu')">-->
-    </div>
-    <div class="col">
-        template
+            v-bind:class="buttonCss"
+            v-bind:src="image(buttonSvg)"
+            v-on:touchstart.stop.prevent="push($event, '/menu')"
+            v-on:click.stop.prevent="push($event, '/menu')">
+        <span>template</span>
+        <!-- preload highlighted variant -->
+        <img 
+            v-bind:src="image('menu_white.svg')"
+            v-show="false">
     </div>
 </div>

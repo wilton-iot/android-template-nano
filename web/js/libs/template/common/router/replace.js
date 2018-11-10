@@ -14,30 +14,15 @@
  * limitations under the License.
  */
 
-define(function(require) {
+
+define([
+], function() {
     "use strict";
 
-    var Vue = require("vue");
-    var Vuex = require("vuex");
-
-    Vue.use(Vuex);
-
-    return new Vuex.Store({
-        strict: true,
-
-        actions: {
-        },
-
-        modules: {
-            exit: require("./modules/exit/exitStore"),
-            menu: require("./modules/menu/menuStore")
-        },
-
-        mutations: {
-        },
-
-        state: {
-        }
-
-    });
+    return function(path) {
+        // late binding
+        require(["template/router"], function(router) {
+            router.replace(path);
+        });
+    };
 });

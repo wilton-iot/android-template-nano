@@ -14,30 +14,15 @@
  * limitations under the License.
  */
 
-define(function(require) {
+define([
+    "json!template/config.json"
+], function(cf) {
     "use strict";
 
-    var Vue = require("vue");
-    var Vuex = require("vuex");
-
-    Vue.use(Vuex);
-
-    return new Vuex.Store({
-        strict: true,
-
-        actions: {
-        },
-
-        modules: {
-            exit: require("./modules/exit/exitStore"),
-            menu: require("./modules/menu/menuStore")
-        },
-
-        mutations: {
-        },
-
-        state: {
-        }
-
-    });
+    return function(funPre, funPost) {
+        funPre();
+        setTimeout(function() {
+           funPost();
+        }, cf.highlightTimeoutMillis);
+    };
 });

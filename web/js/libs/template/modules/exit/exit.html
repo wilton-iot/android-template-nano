@@ -20,8 +20,25 @@
 
         <div class="row mt-3">
             <div class="col text-center">
-                Android Application Template
+                Do you want to exit the application?
                 <hr/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <button
+                    type="button"
+                    class="btn btn-lg btn-danger"
+                    v-on:click.stop.prevent="dispatch('exit/exitApplication')">
+                    Exit
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-lg btn-success"
+                    v-on:click.stop.prevent="pushBack()">
+                    Back
+                </button>
             </div>
         </div>
 

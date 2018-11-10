@@ -26,8 +26,10 @@ define(function(require) {
         linkActiveClass: "active",
         linkExactActiveClass: "active",
         routes: [
-            { path: "/", component: require("./modules/hello/hello") }
-//            { path: "/menu", component: require("./modules/menu/menu") },
+            { path: "/", redirect: "/hello" },
+            { path: "/menu", component: require("./modules/menu/menu") },
+            { path: "/hello", component: require("./modules/hello/hello") },
+            { path: "/exit", component: require("./modules/exit/exit") }
         ]
     });
 });

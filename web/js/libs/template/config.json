@@ -1,6 +1,6 @@
 {
     "imgPath": "/web/img/",
-    "letterHighlightTimeoutMillis": 1000,
+    "highlightTimeoutMillis": 200,
     "wsUrl": "ws://127.0.0.1:8080/",
     "wsErrorsConsole": true,
     "wsLogConsole": false,

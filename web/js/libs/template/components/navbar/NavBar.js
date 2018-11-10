@@ -15,11 +15,20 @@
  */
 
 define([
+    // id
     "module",
-    "template/common/image",
-    "template/common/push",
+    // common
+    "template/common/router/push",
+    "template/common/ui/highlight",
+    "template/common/ui/image",
+    "template/common/ui/ignoreNonTouch",
+    // local
     "text!./NavBar.html"
-], function(module, image, push, template) {
+], function(
+        module, // id
+        push, highlight, image, ignoreNonTouch,
+        template
+) {
     "use strict";
 
     return function() {
@@ -27,13 +36,37 @@ define([
 
         this.data = function() {
             return {
-                module: module
+                module: module,
+
+                buttonCss: {
+                    "template-img-inline-30": true,
+                    "bg-primary": false
+                },
+
+                buttonSvg: "menu.svg"
             };
         },
 
         this.methods = {
             image: image,
-            push: push
+
+            push: function(event, path) {
+                console.log(event.type);
+                if (ignoreNonTouch(event)) {
+                    return;
+                }
+                var self = this;
+                highlight(function() {
+                    self.buttonCss["bg-primary"] = true;
+                    self.buttonCss["text-light"] = true;
+                    self.buttonSvg = "menu_white.svg";
+                }, function() {
+                    self.buttonCss["bg-primary"] = false;
+                    self.buttonCss["text-light"] = false;
+                    self.buttonSvg = "menu.svg";
+                });
+                push(path);
+            }
         };
     };
 });

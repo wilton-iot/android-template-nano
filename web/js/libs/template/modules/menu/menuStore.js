@@ -17,27 +17,19 @@
 define(function(require) {
     "use strict";
 
-    var Vue = require("vue");
-    var Vuex = require("vuex");
-
-    Vue.use(Vuex);
-
-    return new Vuex.Store({
-        strict: true,
+    return {
+        namespaced: true,
 
         actions: {
         },
 
-        modules: {
-            exit: require("./modules/exit/exitStore"),
-            menu: require("./modules/menu/menuStore")
-        },
-
         mutations: {
+           updateLastPath: require("./mutations/updateLastPath")
         },
 
         state: {
+            lastPath: ""
         }
 
-    });
+    };
 });

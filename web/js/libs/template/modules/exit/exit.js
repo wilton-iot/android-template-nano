@@ -16,16 +16,18 @@
 
 define([
     "module",
+    "template/common/router/pushBack",
+    "template/common/store/dispatch",
     "template/components/header/Header",
-    "text!./hello.html"
-], function (module, Header, template) {
+    "text!./exit.html"
+], function (module, pushBack, dispatch, Header, template) {
     "use strict";
 
     return {
         template: template,
 
         components: {
-            "template-header": new Header("Hello")
+            "template-header": new Header("Exit")
         },
 
         data: function() {
@@ -33,17 +35,16 @@ define([
                 module: module,
 
                 menu: {
-                    label: "Hello",
-                    description: "Hello from the aplication template",
-                    path: "/hello"
+                    label: "Exit",
+                    description: "Exit the application",
+                    path: "/exit"
                 }
             };
         },
 
         methods: {
-            exit: function() {
-                this.$store.dispatch("hello/exitApplication");
-            }
+            pushBack: pushBack,
+            dispatch: dispatch
         }
     };
 });

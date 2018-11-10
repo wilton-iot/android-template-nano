@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 # Copyright 2018, alex at staticlibs.net
@@ -20,21 +21,5 @@ set -x
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APP_DIR="$SCRIPT_DIR"/..
 
-# build
-"$APP_DIR"/resources/create-apk.sh
-
-# restart adb server
-# sudo "$APP_DIR"/tools/adb/adb kill-server
-# sudo "$APP_DIR"/tools/adb/adb start-server
-
-# uninstall
-"$APP_DIR"/tools/adb/adb uninstall template.android
-
-# install
-"$APP_DIR"/tools/adb/adb install ./android/build/template.apk
-
-# run
-"$APP_DIR"/tools/adb/adb shell am start -a android.intent.action.MAIN -n template.android/.MainActivity
-
 # show logs
-"$APP_DIR"/resources/logcat-apk.sh
+"$APP_DIR"/tools/adb/adb logcat | grep -E "(chromium|NanoHTTPD|template.android)"
