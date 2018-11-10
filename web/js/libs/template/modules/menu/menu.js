@@ -92,6 +92,17 @@ define([
             "template-header": new Header("Menu")
         },
 
+        created: function() {
+            var list = this.entries;
+            var lp = state(this).lastPath;
+            for (var i = 0; i < list.length; i++) {
+                var en = list[i];
+                if (lp === en.path) {
+                    en.labelCss["font-weight-bold"] = true;
+                }
+            }
+        },
+
         data: function() {
             return {
                 module: module,
@@ -107,9 +118,6 @@ define([
                 if (ignoreNonTouch(event)) {
                     return;
                 }
-//                if (en.path === state(thiz).lastPath) {
-//                    en.css["font-weight-bold"] = true;
-//                }
                 highlight(function() {
                     en.rowCss["bg-primary"] = true;
                     en.labelCss["text-light"] = true;

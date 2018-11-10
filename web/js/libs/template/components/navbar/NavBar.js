@@ -51,7 +51,6 @@ define([
             image: image,
 
             push: function(event, path) {
-                console.log(event.type);
                 if (ignoreNonTouch(event)) {
                     return;
                 }
