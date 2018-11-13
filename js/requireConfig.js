@@ -35,7 +35,8 @@ requireConfig = function(appdir) {
         baseUrl: appdir  + "/js/libs",
         paths: {
             json: appdir  + "/web/js/libs/json",
-            text: appdir  + "/web/js/libs/text"
+            text: appdir  + "/web/js/libs/text",
+            "myapp/common/utils": appdir + "/web/js/libs/myapp/common/utils" 
         }
     });
 

@@ -15,7 +15,7 @@
  */
 
 define([
-    "./utils/formatError",
+    "myapp/common/utils/formatError",
     "./appdir",
     "./Server"
 ], function(formatError, appdir, Server) {
@@ -82,8 +82,13 @@ define([
         Process.killProcess(pid);
     }
 
+    function showMessage(msg) {
+        mainActivity.showMessage(msg);
+    }
+
     return {
         initialize: initialize,
-        killCurrentProcess: killCurrentProcess
+        killCurrentProcess: killCurrentProcess,
+        showMessage: showMessage
     };
 });

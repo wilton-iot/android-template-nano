@@ -15,7 +15,7 @@
  */
 
 define([
-    "myapp/utils/listProperties"
+    "myapp/common/utils/listProperties"
 ], function(listProperties) {
     "use strict";
     

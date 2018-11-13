@@ -15,11 +15,20 @@
  */
 
 define([
-], function() {
+    "myapp/common/backendcall"
+], function(backendcall) {
     "use strict";
 
-    return function(module) {
-        var parts = module.id.split("/");
-        return parts[parts.length - 1];
+    return function(context, msg) {
+        backendcall({
+            module: "myapp/android",
+            func: "showMessage",
+            args: [msg]
+        }, function(err) {
+            if (err) {
+                console.error(err);
+            }
+        });
     };
 });
+

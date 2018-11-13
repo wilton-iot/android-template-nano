@@ -48,6 +48,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
 
+import myapp.android.BuildConfig;
+
 public class MainActivity extends Activity {
 
     private static Context RHINO_CONTEXT;
@@ -68,6 +70,8 @@ public class MainActivity extends Activity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        showMessage(String.valueOf(BuildConfig.VERSION_CODE));
 
         if (null == RHINO_CONTEXT && null == RHINO_SCOPE) {
             RHINO_EXECUTOR.execute(new Runnable() {

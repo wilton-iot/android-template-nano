@@ -15,7 +15,8 @@
  */
 
 define([
-    "myapp/common/backendcall"
+    "myapp/common/backendcall",
+    "myapp/common/store/checkActionError"
 ], function(backendcall) {
     "use strict";
 
@@ -24,9 +25,7 @@ define([
             module: "myapp/android",
             func: "killCurrentProcess"
         }, function(err) {
-            if (err) {
-                console.error(err);
-            }
+            if(checkActionError(err)) return;
         });
     };
 });

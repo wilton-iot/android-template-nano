@@ -15,7 +15,7 @@
  */
 
 define([
-    "./utils/formatError"
+    "myapp/common/utils/formatError"
 ], function(formatError) {
     "use strict";
 
@@ -56,6 +56,11 @@ define([
                 throw new Error("Invalid call description specified");
             }
             var res = callRequireModule(msg.payload);
+            if ("object" === typeof(res) && "object" === typeof(res.class) &&
+                    "class java.lang.String" === String(res.class)) {
+                // for safe json stringify
+                res = String(res);
+            }
             var response = {
                 messageId: messageId,
                 payload: res

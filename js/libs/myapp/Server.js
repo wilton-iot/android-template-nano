@@ -16,7 +16,7 @@
 
 define([
     // myapp
-    "./utils/checkProperties",
+    "myapp/common/utils/checkProperties",
     "./backendcall",
     "./isAndroid",
     "./runOnRhinoThread",

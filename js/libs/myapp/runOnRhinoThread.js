@@ -15,7 +15,7 @@
  */
 
 define([
-    "./utils/formatError",
+    "myapp/common/utils/formatError",
     "./isAndroid"
 ], function(formatError, isAndroid) {
     "use strict";

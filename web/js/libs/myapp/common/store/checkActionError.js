@@ -14,31 +14,17 @@
  * limitations under the License.
  */
 
-define(function(require) {
+define([
+    "./dispatch"
+], function(dispatch) {
     "use strict";
 
-    var Vue = require("vue");
-    var Vuex = require("vuex");
-
-    Vue.use(Vuex);
-
-    return new Vuex.Store({
-        strict: true,
-
-        actions: {
-            showMessage: require("./common/actions/showMessage")
-        },
-
-        modules: {
-            exit: require("./modules/exit/exitStore"),
-            menu: require("./modules/menu/menuStore")
-        },
-
-        mutations: {
-        },
-
-        state: {
+    return function(err) {
+        if (null !== err) {
+            console.error(err);
+            dispatch("showMessage", String(err));
+            return true;
         }
-
-    });
+        return false;
+    };
 });

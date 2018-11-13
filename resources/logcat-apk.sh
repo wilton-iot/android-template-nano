@@ -22,4 +22,4 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APP_DIR="$SCRIPT_DIR"/..
 
 # show logs
-"$APP_DIR"/tools/adb/adb logcat | grep -E "(chromium|NanoHTTPD|myapp.android)"
+"$APP_DIR"/tools/adb/adb logcat | grep -E "(chromium|NanoHTTPD|myapp.android|^E/art)"

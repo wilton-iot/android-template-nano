@@ -16,9 +16,10 @@
 
 define([
     "module",
+    "myapp/common/store/dispatch",
     "myapp/components/header/Header",
     "text!./hello.html"
-], function (module, Header, template) {
+], function (module, dispatch, Header, template) {
     "use strict";
 
     return {
@@ -41,8 +42,8 @@ define([
         },
 
         methods: {
-            exit: function() {
-                this.$store.dispatch("hello/exitApplication");
+            sayHello: function() {
+                dispatch("showMessage", "Hello from MyApp!");
             }
         }
     };

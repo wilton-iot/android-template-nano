@@ -26,7 +26,11 @@ define([
         if (cf.wsErrorsConsole) {
             var msg = obj;
             if (cf.wsConsoleStringify) {
-                msg = JSON.stringify(obj, null, 4);
+                if ("undefined" !== typeof(obj.data)) {
+                    msg = JSON.stringify(obj.data, null, 4);
+                } else {
+                    msg = JSON.stringify(obj, null, 4);
+                }
             }
             console.error(msg);
         }
