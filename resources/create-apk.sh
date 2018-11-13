@@ -31,7 +31,7 @@ APP_DIR="$SCRIPT_DIR"/..
 rm -rf $APP_DIR/android/.gradle
 rm -rf $APP_DIR/android/build
 rm -rf $APP_DIR/android/app/build
-rm -f $APP_DIR/android/app/src/main/assets/template.android.zip
+rm -f $APP_DIR/android/app/src/main/assets/myapp.android.zip
 
 mkdir -p $APP_DIR/work
 pushd $APP_DIR/work
@@ -42,11 +42,11 @@ if [ "xtrue" == "x$ANDROIDDEV_GIT_ENABLE" ] ; then
     echo $ANDROIDDEV_GIT_BRANCH >> git-credentials.txt
     rm -f initAndroidGit.js
     ln -s ../js/initAndroidGit.js
-    zip -qr $APP_DIR/android/app/src/main/assets/template.android.zip initAndroidGit.js git-credentials.txt
+    zip -qr $APP_DIR/android/app/src/main/assets/myapp.android.zip initAndroidGit.js git-credentials.txt
 else
     rm -f app
     ln -s .. app
-    zip -qr $APP_DIR/android/app/src/main/assets/template.android.zip app/js app/web
+    zip -qr $APP_DIR/android/app/src/main/assets/myapp.android.zip app/js app/web
 fi
 popd
 
@@ -64,6 +64,6 @@ $APP_DIR/tools/gradle/bin/gradle \
         -Dorg.gradle.daemon=false \
         clean assembleDebug
 
-cp $APP_DIR/android/app/build/outputs/apk/debug/app-debug.apk $APP_DIR/android/build/template.apk
+cp $APP_DIR/android/app/build/outputs/apk/debug/app-debug.apk $APP_DIR/android/build/myapp.apk
 
 popd

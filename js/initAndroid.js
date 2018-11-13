@@ -17,7 +17,7 @@
 (function(){
 
     var File = Packages.java.io.File;
-    var MainActivity = Packages.template.android.MainActivity;
+    var MainActivity = Packages.myapp.android.MainActivity;
 
     // app directory
     var filesDir = MainActivity.INSTANCE.getExternalFilesDir(null);
@@ -27,7 +27,7 @@
     requireConfig(appdir);
 
     // load and run specified module
-    require(["template/android"], function(mod) {
+    require(["myapp/android"], function(mod) {
         mod.initialize();
     });
 

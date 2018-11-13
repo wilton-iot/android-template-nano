@@ -14,32 +14,21 @@
  * limitations under the License.
  */
 
-// top level define required because enforceDefine is used
+package myapp.android.support.nanohttpd;
 
-define([], function() {
+import java.io.IOException;
+import org.nanohttpd.protocols.websockets.CloseCode;
+import org.nanohttpd.protocols.websockets.WebSocketFrame;
 
-    // requirejs config, adjust as needed
-    requirejs.config({
-        baseUrl: "js/libs/",
-        enforceDefine: true,
-        nodeIdCompat: true,
-        waitSeconds: 15
-    });
+public interface WebSocketInterface {
 
-    // start app
-    require([
-        "vue",
-        "myapp/router",
-        "myapp/store",
-        "myapp/app"
-    ], function(Vue, router, store, app) {
-        new Vue({
-            el: '#root',
-            router: router,
-            store: store,
-            template: "<App/>"
-        });
-    });
-});
+    void onOpen(WebSocketAdapter adapter);
 
+    void onClose(CloseCode code, String reason, boolean initiatedByRemote, WebSocketAdapter adapter);
 
+    void onMessage(WebSocketFrame message, WebSocketAdapter adapter);
+
+    void onPong(WebSocketFrame pong, WebSocketAdapter adapter);
+
+    void onException(IOException exception, WebSocketAdapter adapter);
+}

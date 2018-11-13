@@ -14,32 +14,20 @@
  * limitations under the License.
  */
 
-// top level define required because enforceDefine is used
+define([
+    "myapp/common/backendcall"
+], function(backendcall) {
+    "use strict";
 
-define([], function() {
-
-    // requirejs config, adjust as needed
-    requirejs.config({
-        baseUrl: "js/libs/",
-        enforceDefine: true,
-        nodeIdCompat: true,
-        waitSeconds: 15
-    });
-
-    // start app
-    require([
-        "vue",
-        "myapp/router",
-        "myapp/store",
-        "myapp/app"
-    ], function(Vue, router, store, app) {
-        new Vue({
-            el: '#root',
-            router: router,
-            store: store,
-            template: "<App/>"
+    return function(context) {
+        backendcall({
+            module: "myapp/android",
+            func: "killCurrentProcess"
+        }, function(err) {
+            if (err) {
+                console.error(err);
+            }
         });
-    });
+    };
 });
-
 

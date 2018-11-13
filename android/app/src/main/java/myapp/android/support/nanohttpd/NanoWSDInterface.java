@@ -14,32 +14,14 @@
  * limitations under the License.
  */
 
-// top level define required because enforceDefine is used
+package myapp.android.support.nanohttpd;
 
-define([], function() {
+import org.nanohttpd.protocols.http.IHTTPSession;
+import org.nanohttpd.protocols.http.response.Response;
 
-    // requirejs config, adjust as needed
-    requirejs.config({
-        baseUrl: "js/libs/",
-        enforceDefine: true,
-        nodeIdCompat: true,
-        waitSeconds: 15
-    });
+public interface NanoWSDInterface {
 
-    // start app
-    require([
-        "vue",
-        "myapp/router",
-        "myapp/store",
-        "myapp/app"
-    ], function(Vue, router, store, app) {
-        new Vue({
-            el: '#root',
-            router: router,
-            store: store,
-            template: "<App/>"
-        });
-    });
-});
+    Response serve(IHTTPSession session, NanoWSDAdapter adapter);
 
-
+    WebSocketAdapter openWebSocket(IHTTPSession handshake, NanoWSDAdapter adapter);
+}

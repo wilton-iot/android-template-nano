@@ -15,12 +15,12 @@
  */
 
 define([
-    "template/test/appdirTest",
-    "template/test/backendcallTest",
-    "template/test/ioTest",
-    "template/test/ServerTest",
-    "template/test/runOnRhinoThreadTest",
-    "template/test/utilsTest"
+    "myapp/test/appdirTest",
+    "myapp/test/backendcallTest",
+    "myapp/test/ioTest",
+    "myapp/test/ServerTest",
+    "myapp/test/runOnRhinoThreadTest",
+    "myapp/test/utilsTest"
 ], function() {
     "use strict";
 

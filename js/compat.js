@@ -20,7 +20,7 @@ function print(msg) {
             .toLowerCase().indexOf("android");
     if (isAndroid) {
         var Log = Packages.android.util.Log;
-        Log.i("template.android", String(msg));
+        Log.i("myapp.android", String(msg));
     } else {
         System.out.println(String(msg));
     }

@@ -14,32 +14,11 @@
  * limitations under the License.
  */
 
-// top level define required because enforceDefine is used
+define([
+    "module"
+], function(module) {
+    "use strict";
 
-define([], function() {
-
-    // requirejs config, adjust as needed
-    requirejs.config({
-        baseUrl: "js/libs/",
-        enforceDefine: true,
-        nodeIdCompat: true,
-        waitSeconds: 15
-    });
-
-    // start app
-    require([
-        "vue",
-        "myapp/router",
-        "myapp/store",
-        "myapp/app"
-    ], function(Vue, router, store, app) {
-        new Vue({
-            el: '#root',
-            router: router,
-            store: store,
-            template: "<App/>"
-        });
-    });
+    return module.uri.replace(/js\/libs\/myapp\/appdir.js$/, "");
 });
-
 

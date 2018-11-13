@@ -28,13 +28,13 @@ APP_DIR="$SCRIPT_DIR"/..
 # sudo "$APP_DIR"/tools/adb/adb start-server
 
 # uninstall
-"$APP_DIR"/tools/adb/adb uninstall template.android
+"$APP_DIR"/tools/adb/adb uninstall myapp.android
 
 # install
-"$APP_DIR"/tools/adb/adb install ./android/build/template.apk
+"$APP_DIR"/tools/adb/adb install ./android/build/myapp.apk
 
 # run
-"$APP_DIR"/tools/adb/adb shell am start -a android.intent.action.MAIN -n template.android/.MainActivity
+"$APP_DIR"/tools/adb/adb shell am start -a android.intent.action.MAIN -n myapp.android/.MainActivity
 
 # show logs
 "$APP_DIR"/resources/logcat-apk.sh

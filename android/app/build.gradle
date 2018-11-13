@@ -20,11 +20,11 @@ android {
     compileSdkVersion 26
 
     defaultConfig {
-        applicationId "template.android"
+        applicationId "myapp.android"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode  201811071
-        versionName "201811071"
+        versionCode  201811131
+        versionName "201811131"
     }
 }
 

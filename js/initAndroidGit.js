@@ -33,8 +33,8 @@
     var FileRepositoryBuilder = Packages.org.eclipse.jgit.storage.file.FileRepositoryBuilder;
     var SshSessionFactory = Packages.org.eclipse.jgit.transport.SshSessionFactory;
 
-    var PasswordSshSessionFactory = Packages.template.android.support.jgit.PasswordSshSessionFactory;
-    var MainActivity = Packages.template.android.MainActivity;
+    var PasswordSshSessionFactory = Packages.myapp.android.support.jgit.PasswordSshSessionFactory;
+    var MainActivity = Packages.myapp.android.MainActivity;
 
     function closeQuietly(closeable) {
         if (null !== closeable) {
@@ -92,7 +92,7 @@
     }
 
     function print(msg) {
-        Log.i("template.android", String(msg));
+        Log.i("myapp.android", String(msg));
     }
 
     function gitCheckout(url, passwd, branch, appdirPath) {

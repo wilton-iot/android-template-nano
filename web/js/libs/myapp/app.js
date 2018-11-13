@@ -14,32 +14,21 @@
  * limitations under the License.
  */
 
-// top level define required because enforceDefine is used
+define([
+    "vue",
+    "myapp/components/navbar/NavBar",
+    "text!./app.html"
+], function(Vue, NavBar, template) {
+    "use strict";
 
-define([], function() {
+    return Vue.component("App", {
+        template: template,
 
-    // requirejs config, adjust as needed
-    requirejs.config({
-        baseUrl: "js/libs/",
-        enforceDefine: true,
-        nodeIdCompat: true,
-        waitSeconds: 15
-    });
+        components: {
+            "myapp-nav-bar": new NavBar()
+        },
 
-    // start app
-    require([
-        "vue",
-        "myapp/router",
-        "myapp/store",
-        "myapp/app"
-    ], function(Vue, router, store, app) {
-        new Vue({
-            el: '#root',
-            router: router,
-            store: store,
-            template: "<App/>"
-        });
+        created: function() {
+        }
     });
 });
-
-

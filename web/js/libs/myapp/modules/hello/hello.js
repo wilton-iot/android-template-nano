@@ -15,28 +15,35 @@
  */
 
 define([
-    "myapp/appdir",
-    "myapp/Server"
-], function(appdir, Server) {
+    "module",
+    "myapp/components/header/Header",
+    "text!./hello.html"
+], function (module, Header, template) {
     "use strict";
 
-    var System = Packages.java.lang.System;
-
     return {
-        main: function() {
-            var server = new Server({
-                hostname: "127.0.0.1",
-                port: 8080,
-                webDir: appdir + "web",
-                webPath: "web"
-            });
-            print("Starting server ...");
-            server.start();
-            print("Server started, url: [http://127.0.0.1:8080/web/index.html], press 'Enter' to stop");
-            System.console().readLine();
-            print("Shutting down server ...");
-            server.stop();
-            print("Server shut down");
+        template: template,
+
+        components: {
+            "myapp-header": new Header("Hello")
+        },
+
+        data: function() {
+            return {
+                module: module,
+
+                menu: {
+                    label: "Hello",
+                    description: "Hello from MyApp",
+                    path: "/hello"
+                }
+            };
+        },
+
+        methods: {
+            exit: function() {
+                this.$store.dispatch("hello/exitApplication");
+            }
         }
     };
 });
