@@ -33,6 +33,7 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 import java.io.Closeable;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
@@ -70,8 +72,6 @@ public class MainActivity extends Activity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        showMessage(String.valueOf(BuildConfig.VERSION_CODE));
 
         if (null == RHINO_CONTEXT && null == RHINO_SCOPE) {
             RHINO_EXECUTOR.execute(new Runnable() {
@@ -169,14 +169,35 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void unpackAssets(File topLevelDir, String path) {
+    private void unpackAssets(File filesDir, String path) {
         try {
-            if (0 != topLevelDir.list().length) {
+            int ver = BuildConfig.VERSION_CODE;
+            int exVer = readAppVersion();
+            if (ver == exVer) {
                 return;
             }
-            unpackAssetsZip(topLevelDir, path + ".zip");
+            if (0 != exVer) {
+                backupExistingApp(filesDir, exVer);
+            }
+            Log.e(getClass().getPackage().getName(), "Installing app, version: [" + ver + "]");
+            unpackAssetsZip(filesDir, path + ".zip");
+            writeAppVersion();
         } catch(IOException e) {
             showError(e);
+        }
+    }
+
+    private void backupExistingApp(File filesDir, int exVer) throws IOException {
+        File appDir = new File(filesDir, "app");
+        File versionDir = new File(filesDir, String.valueOf(exVer));
+        boolean mkSuccess = versionDir.mkdir();
+        if (!mkSuccess) {
+            throw new IOException("Cannot create backup directory, path: [" + versionDir.getAbsolutePath() + "]");
+        }
+        File backupDir = new File(versionDir, "app");
+        boolean renameSuccess = appDir.renameTo(backupDir);
+        if (!renameSuccess) {
+            throw new IOException("Cannot backup existing app, path: [" + backupDir.getAbsolutePath() + "]");
         }
     }
 
@@ -210,6 +231,41 @@ public class MainActivity extends Activity {
             copy(zis, fos);
         } finally {
             closeQuietly(fos);
+        }
+    }
+
+    private File versionPath() {
+        File filesDir = getExternalFilesDir(null);
+        return new File(filesDir, ".appversion");
+    }
+
+    private int readAppVersion() throws IOException {
+        File path = versionPath();
+        if (path.exists()) {
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(path);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                copy(fis, baos);
+                String str = baos.toString("UTF-8");
+                return Integer.parseInt(str);
+            } finally {
+                closeQuietly(fis);
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    private  void writeAppVersion() throws IOException {
+        String ver = String.valueOf(BuildConfig.VERSION_CODE);
+        OutputStreamWriter writer = null;
+        try {
+            FileOutputStream fos = new FileOutputStream(versionPath());
+            writer = new OutputStreamWriter(fos, "UTF-8");
+            writer.write(ver);
+        } finally {
+            closeQuietly(writer);
         }
     }
 
