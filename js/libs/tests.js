@@ -26,7 +26,7 @@ define([
 
     return {
         main: function() {
-            print("RAEDUS_TESTS_PASSED");
+            print("MYAPP_TESTS_PASSED");
         }
     };
 });
