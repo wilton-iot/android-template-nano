@@ -56,7 +56,8 @@ define([
                 throw new Error("Invalid call description specified");
             }
             var res = callRequireModule(msg.payload);
-            if ("object" === typeof(res) && "object" === typeof(res.class) &&
+            if ("object" === typeof(res) && null !== res && 
+                    "object" === typeof(res.class) &&
                     "class java.lang.String" === String(res.class)) {
                 // for safe json stringify
                 res = String(res);
