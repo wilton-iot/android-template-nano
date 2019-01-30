@@ -23,8 +23,8 @@ android {
         applicationId "myapp.android"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode  201811131
-        versionName "201811131"
+        versionCode  201901301
+        versionName "201001301"
     }
 }
 
