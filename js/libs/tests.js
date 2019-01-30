@@ -15,10 +15,12 @@
  */
 
 define([
+    "myapp/test/activeSocketTest",
     "myapp/test/appdirTest",
     "myapp/test/backendcallTest",
     "myapp/test/ioTest",
     "myapp/test/ServerTest",
+    "myapp/test/profilesTest",
     "myapp/test/runOnRhinoThreadTest",
     "myapp/test/utilsTest"
 ], function() {

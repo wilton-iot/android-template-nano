@@ -26,14 +26,13 @@ define([
         template: template,
 
         components: {
-            "myapp-header": new Header("Hello")
+            "myapp-header": new Header("Hello", "My Android Application")
         },
 
         data: function() {
             return {
                 module: module,
-
-                menu: {
+                listItem: {
                     label: "Hello",
                     description: "Hello from MyApp",
                     path: "/hello"

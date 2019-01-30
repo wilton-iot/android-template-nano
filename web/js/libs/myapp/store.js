@@ -26,18 +26,26 @@ define(function(require) {
         strict: true,
 
         actions: {
+            activateBackPressedNotifications: require("./common/actions/activateBackPressedNotifications"),
             showMessage: require("./common/actions/showMessage")
         },
 
         modules: {
-            exit: require("./modules/exit/exitStore"),
-            menu: require("./modules/menu/menuStore")
+            exit: require("./modules/exit/exitStore")
         },
 
         mutations: {
+            updateCanGoBack: require("./common/mutations/updateCanGoBack"),
+            updateCanGoForward: require("./common/mutations/updateCanGoForward"),
+            updateCanGoToMenu: require("./common/mutations/updateCanGoToMenu")
         },
 
         state: {
+            transient: {
+                canGoForward: false,
+                canGoBack: false,
+                canGoToMenu: true
+            }
         }
 
     });

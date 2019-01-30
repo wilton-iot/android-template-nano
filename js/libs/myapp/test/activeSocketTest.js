@@ -1,5 +1,5 @@
-/* 
- * Copyright 2018, alex at staticlibs.net
+/*
+ * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,17 @@
  */
 
 define([
-    "module",
-    "text!./Header.html"
-], function(module, template) {
+    "./assert",
+    "../activeSocket"
+], function(assert, activeSocket) {
     "use strict";
 
-    return function(label, description) {
-        this.template = template;
+    print("test: activeSocket");
 
-        this.data = function() {
-            return {
-                module: module,
-
-                label: label,
-                description: description
-            };
-        };
-
-        this.methods = {
-        };
-    };
+    assert(null === activeSocket.get());
+    activeSocket.set("foo");
+    assert.equal(activeSocket.get(), "foo");
+    activeSocket.clear();
+    assert(null === activeSocket.get());
 });
+

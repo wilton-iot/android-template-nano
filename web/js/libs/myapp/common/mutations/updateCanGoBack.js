@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, alex at staticlibs.net
+ * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ define([
 ], function(Vue) {
     "use strict";
 
-    return function(state, path) {
-        Vue.set(state, "lastPath", path);
+    return function(state, value) {
+        Vue.set(state.transient, "canGoBack", true === value);
     };
 });

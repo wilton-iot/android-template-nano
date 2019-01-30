@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,28 +15,30 @@
  */
 
 define([
-    "vue",
-    "myapp/components/navbar/NavBar",
-    "text!./app.html"
-], function(Vue, NavBar, template) {
+    "myapp/common/backendcall",
+    "myapp/common/store/checkActionError"
+], function(backendcall, checkActionError) {
     "use strict";
 
-    return Vue.component("App", {
-        template: template,
+    function activate() {
+        backendcall({
+            module: "myapp/android",
+            func: "activateBackPressedNotifications",
+            args: ["back-pressed"]
+        }, function(err) {
+            if (checkActionError(err)) return;
+        });
+    }
 
-        components: {
-            "myapp-nav-bar": new NavBar()
-        },
-
-        created: function() {
-            this.$store.dispatch("activateBackPressedNotifications");
-//            this.$store.dispatch("loadActiveProfile");
-        },
-
-        methods: {
-            top: function() {
-                window.scrollTo(0, 0);
+    return function(context) {
+        backendcall({
+            module: "myapp/isAndroid"
+        }, function(err, isAndroid) {
+            if (checkActionError(err)) return;
+            if (isAndroid) {
+                activate();
             }
-        }
-    });
+        });
+
+    };
 });

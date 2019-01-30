@@ -1,5 +1,5 @@
-/*
- * Copyright 2018, alex at staticlibs.net
+/* 
+ * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,14 @@
  */
 
 define([
-    // myapp
     "myapp/common/utils/checkProperties",
+    "./activeSocket",
     "./backendcall",
     "./isAndroid",
     "./runOnRhinoThread",
     "json!./mimeTypes.json"
 ], function(
-        checkProperties, backendcall, isAndroid, runOnRhinoThread, mimes // myapp
+        checkProperties, activeSocket, backendcall, isAndroid, runOnRhinoThread, mimes
 ) {
     "use strict";
 
@@ -38,6 +38,18 @@ define([
     var MIME_HTML = "text/html";
     var backslashRegex = new RegExp("/\\/g");
 
+    function handleWebSocketRhino(req, socket) {
+        runOnRhinoThread(function() {
+            try {
+                activeSocket.set(socket);
+                var resp = backendcall(req);
+                socket.send(resp);
+            } finally {
+                activeSocket.clear();
+            }
+        });
+    }
+
     var websocket = {
         onOpen: function(adapter) {
             // no action
@@ -46,12 +58,9 @@ define([
             // no action
         },
         onMessage: function(message, adapter) {
+            var req = message.getTextPayload();
             var self = adapter || this;
-            runOnRhinoThread(function() {
-                var req = message.getTextPayload();
-                var resp = backendcall(req);
-                self.send(resp);
-            });
+            handleWebSocketRhino(req, self);
         },
         onPong: function(pong, adapter) {
             // no action

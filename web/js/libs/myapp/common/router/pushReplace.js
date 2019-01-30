@@ -14,22 +14,15 @@
  * limitations under the License.
  */
 
-define(function(require) {
+
+define([
+    "./history",
+    "./push"
+], function(history, push) {
     "use strict";
 
-    return {
-        namespaced: true,
-
-        actions: {
-        },
-
-        mutations: {
-           updateLastPath: require("./mutations/updateLastPath")
-        },
-
-        state: {
-            lastPath: ""
-        }
-
+    return function(path) {
+        history.pop();
+        push(path);
     };
 });

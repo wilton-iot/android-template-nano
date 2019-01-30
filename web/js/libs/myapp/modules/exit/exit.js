@@ -27,14 +27,14 @@ define([
         template: template,
 
         components: {
-            "myapp-header": new Header("Exit")
+            "myapp-header": new Header("Exit", "Do you want to exit the application?")
         },
 
         data: function() {
             return {
                 module: module,
 
-                menu: {
+                listItem: {
                     label: "Exit",
                     description: "Exit the application",
                     path: "/exit"

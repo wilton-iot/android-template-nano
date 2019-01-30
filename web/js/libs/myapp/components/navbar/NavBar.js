@@ -19,52 +19,131 @@ define([
     "module",
     // common
     "myapp/common/router/push",
+    "myapp/common/router/pushBack",
+    "myapp/common/router/pushForward",
     "myapp/common/ui/highlight",
     "myapp/common/ui/image",
-    "myapp/common/ui/ignoreNonTouch",
     // local
     "text!./NavBar.html"
 ], function(
         module, // id
-        push, highlight, image, ignoreNonTouch,
-        template
+        push, pushBack, pushForward, highlight, image, // common
+        template // local
 ) {
     "use strict";
 
     return function() {
         this.template = template;
 
+        this.computed = {
+            buttonSvg: function() {
+                if (this.buttonHighlighted) {
+                    return "menu_white.svg";
+                } else if (this.$store.state.transient.canGoToMenu) {
+                    return "menu.svg";
+                } else {
+                    return "menu_grey.svg";
+                }
+            },
+
+            backSvg: function() {
+                if (this.backHighlighted) {
+                    return "back-arrow_white.svg";
+                } else if (this.$store.state.transient.canGoBack) {
+                    return "back-arrow.svg";
+                } else {
+                    return "back-arrow_grey.svg";
+                }
+            },
+
+            forwardSvg: function() {
+                if (this.forwardHighlighed) {
+                    return "list-arrow_white.svg";
+                } else if (this.$store.state.transient.canGoForward) {
+                    return "list-arrow.svg";
+                } else {
+                    return "list-arrow_grey.svg";
+                }
+            }
+        },
+
         this.data = function() {
             return {
                 module: module,
 
                 buttonCss: {
-                    "myapp-img-inline-30": true,
+                    "myapp-img-inline-25": true,
                     "bg-primary": false
                 },
+                buttonHighlighted: false,
 
-                buttonSvg: "menu.svg"
+                backCss: {
+                    "myapp-img-inline-25": true,
+                    "bg-primary": false
+                },
+                backHighlighted: false,
+
+                forwardCss: {
+                    "myapp-img-inline-25": true,
+                    "bg-primary": false
+                },
+                forwardHighlighed: false
+
             };
         },
 
         this.methods = {
             image: image,
 
-            push: function(event, path) {
-                if (ignoreNonTouch(event)) {
+            menu: function() {
+                if (!this.$store.state.transient.canGoToMenu) {
                     return;
                 }
                 var self = this;
                 highlight(function() {
                     self.buttonCss["bg-primary"] = true;
                     self.buttonCss["text-light"] = true;
-                    self.buttonSvg = "menu_white.svg";
+                    self.buttonHighlighted = true;
                 }, function() {
                     self.buttonCss["bg-primary"] = false;
                     self.buttonCss["text-light"] = false;
-                    self.buttonSvg = "menu.svg";
+                    self.buttonHighlighted = false;
+                    push("/menu");
                 });
-                push(path);
+            },
+
+            back: function() {
+                if (!this.$store.state.transient.canGoBack) {
+                    return;
+                }
+                var self = this;
+                highlight(function() {
+                    self.backCss["bg-primary"] = true;
+                    self.backCss["text-light"] = true;
+                    self.backHighlighted = true;
+                }, function() {
+                    self.backCss["bg-primary"] = false;
+                    self.backCss["text-light"] = false;
+                    self.backHighlighted = false;
+                    pushBack();
+                });
+            },
+
+            forward: function() {
+                if (!this.$store.state.transient.canGoForward) {
+                    return;
+                }
+                var self = this;
+                highlight(function() {
+                    self.forwardCss["bg-primary"] = true;
+                    self.forwardCss["text-light"] = true;
+                    self.forwardHighlighed = true;
+                }, function() {
+                    self.forwardCss["bg-primary"] = false;
+                    self.forwardCss["text-light"] = false;
+                    self.forwardHighlighed = false;
+                    pushForward();
+                });
             }
         };
     };

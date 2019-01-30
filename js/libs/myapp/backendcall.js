@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2018, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +39,8 @@ define([
             // target call
             return module.apply(null, args);
         } else {
-            throw new Error("Module is not callable, name: [" + cs.module + "]");
+            // return module contents
+            return module;
         }
     }
 

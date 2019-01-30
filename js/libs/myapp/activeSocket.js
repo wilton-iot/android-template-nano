@@ -1,5 +1,5 @@
 /* 
- * Copyright 2018, alex at staticlibs.net
+ * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-define([
-    "module",
-    "text!./Header.html"
-], function(module, template) {
+define([], function() {
     "use strict";
+    
+    var holder = [null];
 
-    return function(label, description) {
-        this.template = template;
+    return {
+        get: function() {
+            return holder[0];
+        },
 
-        this.data = function() {
-            return {
-                module: module,
+        set: function(socket) {
+            holder[0] = socket;
+        },
 
-                label: label,
-                description: description
-            };
-        };
-
-        this.methods = {
-        };
+        clear: function() {
+            holder[0] = null;
+        }
     };
 });
+

@@ -46,14 +46,13 @@
     width: 2.5rem;
 }
 
-.myapp-img-inline-30 {
-    height: 2.5rem;
-    width: 2.5rem;
-}
-
 .myapp-img-inline-35 {
     height: 3.5rem;
     width: 3.5rem;
+}
+
+.myapp-navbar-height {
+    height: 2.5rem
 }
 
 /* fade anumation */
@@ -68,11 +67,6 @@
 
 .myapp-fade-enter, .myapp-fade-leave-active {
     opacity: 0
-}
-
-/* progress bar */
-.myapp-progress {
-    height: 2em !important;
 }
 
 /* buttons no focus */

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2018, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,24 +15,12 @@
  */
 
 define([
-    "module",
-    "text!./Header.html"
-], function(module, template) {
+], function() {
     "use strict";
 
-    return function(label, description) {
-        this.template = template;
-
-        this.data = function() {
-            return {
-                module: module,
-
-                label: label,
-                description: description
-            };
-        };
-
-        this.methods = {
-        };
+    return function(mutation, params) {
+        require(["myapp/store"], function(store) {
+            store.commit(mutation, params);
+        });
     };
 });

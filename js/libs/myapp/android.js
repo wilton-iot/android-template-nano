@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2018, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,11 +16,13 @@
 
 define([
     "myapp/common/utils/formatError",
+    "./activeSocket",
     "./appdir",
     "./Server"
-], function(formatError, appdir, Server) {
+], function(formatError, activeSocket, appdir, Server) {
     "use strict";
 
+    var Runnable = Packages.java.lang.Runnable;
     var Process = Packages.android.os.Process;
     var Log = Packages.android.util.Log;
     var View = Packages.android.view.View;
@@ -86,9 +88,26 @@ define([
         mainActivity.showMessage(msg);
     }
 
+    function activateBackPressedNotifications(topic) {
+        if (null !== mainActivity.backPressedCallback) {
+            throw new Error("OnBackPressed notifications already activated");
+        }
+        if ("string" !== typeof(topic) || 0 === topic.length) {
+            throw new Error("Invalid empty topic specified");
+        }
+        var socket = activeSocket.get();
+        mainActivity.backPressedCallback = new Runnable(function() {
+            var msg = JSON.stringify({
+                broadcast: topic
+            }, null, 4);
+            socket.send(msg);
+        });
+    }
+
     return {
         initialize: initialize,
         killCurrentProcess: killCurrentProcess,
-        showMessage: showMessage
+        showMessage: showMessage,
+        activateBackPressedNotifications: activateBackPressedNotifications
     };
 });

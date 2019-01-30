@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2018, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,69 +18,28 @@ define([
     // id
     "module",
     // common
-    "myapp/common/router/push",
     "myapp/common/store/commit",
-    "myapp/common/store/state",
-    "myapp/common/ui/highlight",
-    "myapp/common/ui/ignoreNonTouch",
-    "myapp/common/ui/image",
     // components
     "myapp/components/header/Header",
-    // entries
-    "myapp/modules/hello/hello",
+    "myapp/components/list/List",
+    // modules
     "myapp/modules/exit/exit",
+    "myapp/modules/hello/hello",
     // other
     "text!./menu.html"
 ], function (
         module, // id
-        push, commit, state, highlight, ignoreNonTouch, image, // common
-        Header, // components
-        hello, exit, // lessons
+        commit, // common
+        Header, List, // components
+        exit, hello,// modules
         template // other
-    ) {
+) {
     "use strict";
 
-    var entryModules = [
-        hello,
-        exit
-    ];
-
-    function entryRowCss() {
-        return {
-            "row": true,
-            "pt-2": true,
-            "bg-primary": false
-        };
-    }
-
-    function entryLabelCss() {
-        return {
-            "text-primary": true,
-            "border-bottom": true,
-            "h4": true,
-            "font-weight-bold": false,
-            "text-light": false
-        };
-    }
-
-    function entryDescriptionCss() {
-        return {
-            "col": true,
-            "text-muted": true,
-            "text-light": false
-        };
-    }
-
-    function createEntries() {
+    function modsListItems(mods) {
         var res = [];
-        for (var i = 0; i < entryModules.length; i++) {
-            var mod = entryModules[i];
-            var en = mod.data().menu;
-            en.rowCss = entryRowCss();
-            en.labelCss = entryLabelCss();
-            en.descriptionCss = entryDescriptionCss();
-            en.arrowSvg = "list-arrow.svg";
-            res.push(en);
+        for (var i = 0; i < mods.length; i++) {
+            res.push(mods[i].data().listItem);
         }
         return res;
     }
@@ -89,51 +48,25 @@ define([
         template: template,
 
         components: {
-            "myapp-header": new Header("Menu")
+            "myapp-header": new Header("Menu", "Choose a section of MyApp application from a list below"),
+            "myapp-list": new List(modsListItems([
+                hello,
+                exit
+            ]))
         },
 
         created: function() {
-            var list = this.entries;
-            var lp = state(this).lastPath;
-            for (var i = 0; i < list.length; i++) {
-                var en = list[i];
-                if (lp === en.path) {
-                    en.labelCss["font-weight-bold"] = true;
-                }
-            }
+            commit(this, "updateCanGoToMenu", false);
+        },
+
+        destroyed: function() {
+            commit(this, "updateCanGoToMenu", true);
         },
 
         data: function() {
             return {
-                module: module,
-
-                entries: createEntries(this)
+                module: module
             };
-        },
-
-        methods: {
-            image: image,
-
-            pushEntry: function(event, en) {
-                if (ignoreNonTouch(event)) {
-                    return;
-                }
-                highlight(function() {
-                    en.rowCss["bg-primary"] = true;
-                    en.labelCss["text-light"] = true;
-                    en.descriptionCss["text-muted"] = false;
-                    en.descriptionCss["text-light"] = true;
-                    en.arrowSvg = "list-arrow_white.svg";
-                }, function() {
-                    en.rowCss["bg-primary"] = false;
-                    en.labelCss["text-light"] = false;
-                    en.descriptionCss["text-muted"] = true;
-                    en.descriptionCss["text-light"] = false;
-                    en.arrowSvg = "list-arrow_white.svg";
-                });
-                commit(this, "menu/updateLastPath", en.path);
-                push(en.path);
-            }
         }
     };
 });

@@ -20,7 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.os.*;
+import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 
@@ -63,6 +63,9 @@ public class MainActivity extends Activity {
     // launchMode="singleInstance" is used
     public static MainActivity INSTANCE = null;
 
+    // registered from Rhino
+    public Runnable backPressedCallback = null;
+
     // Activity callbacks
 
     @Override
@@ -90,7 +93,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        // hideBottomBar();
     }
 
     @Override
@@ -100,9 +102,8 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        WebView wv = findViewById(R.id.activity_main_webview);
-        if (wv.canGoBack()) {
-            wv.goBack();
+        if (null != backPressedCallback) {
+            RHINO_EXECUTOR.execute(backPressedCallback);
         }
     }
 

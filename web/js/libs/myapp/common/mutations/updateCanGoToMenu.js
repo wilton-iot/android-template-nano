@@ -1,5 +1,5 @@
-/* 
- * Copyright 2018, alex at staticlibs.net
+/*
+ * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,11 @@
  */
 
 define([
-    "module",
-    "text!./Header.html"
-], function(module, template) {
+    "vue"
+], function(Vue) {
     "use strict";
 
-    return function(label, description) {
-        this.template = template;
-
-        this.data = function() {
-            return {
-                module: module,
-
-                label: label,
-                description: description
-            };
-        };
-
-        this.methods = {
-        };
+    return function(state, value) {
+        Vue.set(state.transient, "canGoToMenu", true === value);
     };
 });

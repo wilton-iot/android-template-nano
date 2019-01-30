@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-
 define([
-], function() {
+    "./history"
+], function(history) {
     "use strict";
 
-    return function(event) {
-        if ("undefined" !== typeof(document.ontouchstart)) {
-            if ("touchstart" !== event.type) {
-                return true;
-            }
+    return function() {
+        var path = history.forwardPath();
+        if (path) {
+            require(["myapp/router"], function(router) {
+                router.push(path);
+                history.updateState();
+            });
         }
-        return false;
     };
 });

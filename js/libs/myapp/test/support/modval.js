@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 
-
-define([
-], function() {
+define([], function() {
     "use strict";
 
-    return function(path) {
-        // late binding
-        require(["myapp/router"], function(router) {
-            router.replace(path);
-        });
-    };
+    return "foobar";
 });

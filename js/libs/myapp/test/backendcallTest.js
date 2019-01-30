@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2018, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,18 +22,14 @@ define([
 
     print("test: backendcall");
 
-    function comparePayload(callDesc, expected, checkError) {
+    function comparePayload(callDesc, expected) {
         var respJson = backendcall(JSON.stringify({
             messageId: "foo",
             payload: callDesc
         }, null, 4));
         var resp = JSON.parse(respJson);
         assert.equal(resp.messageId, "foo");
-        if (checkError) {
-            assert("string" === typeof(resp.error));
-        } else {
-            assert.equal(resp.payload, expected);
-        }
+        assert.equal(resp.payload, expected);
     }
 
     comparePayload({
@@ -48,7 +44,7 @@ define([
     }, "foobar");
 
     comparePayload({
-        module: "myapp/test/support/modnone"
-    }, null, true);
+        module: "myapp/test/support/modval"
+    }, "foobar");
 
 });

@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2018, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +16,9 @@
 
 define([
     "wsClient",
+    "myapp/common/router/pushBack",
     "json!myapp/config.json"
-], function(wsClient, cf) {
+], function(wsClient, pushBack, cf) {
     "use strict";
 
     var socket = null;
@@ -26,11 +27,7 @@ define([
         if (cf.wsErrorsConsole) {
             var msg = obj;
             if (cf.wsConsoleStringify) {
-                if ("undefined" !== typeof(obj.data)) {
-                    msg = JSON.stringify(obj.data, null, 4);
-                } else {
-                    msg = JSON.stringify(obj, null, 4);
-                }
+                msg = JSON.stringify(obj, null, 4);
             }
             console.error(msg);
         }
@@ -59,6 +56,9 @@ define([
                    cb(err);
                 } else {
                     socket = openedSocket;
+                    // subscribe for back-pressed
+                    wsClient.subscribe(socket, "back-pressed", pushBack);
+                    // send
                     wsClient.send(socket, callDesc, cb);
                 }
             });

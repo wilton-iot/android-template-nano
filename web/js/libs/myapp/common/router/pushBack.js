@@ -15,13 +15,17 @@
  */
 
 define([
-], function() {
+    "./history"
+], function(history) {
     "use strict";
 
     return function() {
-        // late binding
-        require(["myapp/router"], function(router) {
-            router.go(-1);
-        });
+        var path = history.backPath();
+        if (path) {
+            require(["myapp/router"], function(router) {
+                router.push(path);
+                history.updateState();
+            });
+        }
     };
 });
