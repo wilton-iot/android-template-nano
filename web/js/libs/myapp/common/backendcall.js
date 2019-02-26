@@ -17,8 +17,9 @@
 define([
     "wsClient",
     "myapp/common/router/pushBack",
+    "myapp/common/utils/isEmptyObject",
     "json!myapp/config.json"
-], function(wsClient, pushBack, cf) {
+], function(wsClient, pushBack, isEmptyObject, cf) {
     "use strict";
 
     var socket = null;
@@ -26,8 +27,14 @@ define([
     function onError(obj) {
         if (cf.wsErrorsConsole) {
             var msg = obj;
-            if (cf.wsConsoleStringify) {
+            if ("object" === typeof(msg) &&
+                    "undefined" !== msg.stack && "undefined" !== msg.message) {
+                msg = formatError(msg);
+            } else if (cf.wsConsoleStringify) {
                 msg = JSON.stringify(obj, null, 4);
+                if (isEmptyObject(JSON.parse(msg))) {
+                    msg = String(obj);
+                }
             }
             console.error(msg);
         }

@@ -19,8 +19,9 @@ define([
     "myapp/common/utils/listProperties",
     "myapp/common/utils/checkProperties",
     "myapp/common/utils/shortModuleId",
-    "myapp/common/utils/formatError"
-], function(assert, listProperties, checkProperties, shortModuleId, formatError) {
+    "myapp/common/utils/formatError",
+    "myapp/common/utils/isEmptyObject"
+], function(assert, listProperties, checkProperties, shortModuleId, formatError, isEmptyObject) {
     "use strict";
 
     print("test: utils");
@@ -45,4 +46,10 @@ define([
 
     // formatError
     assert(formatError(new Error("foo")).length > 0);
+
+    // isEmptyObject
+    assert(isEmptyObject({}));
+    assert(!isEmptyObject({foo: 42}));
+    assert(!isEmptyObject());
+    assert(!isEmptyObject(null));
 });
