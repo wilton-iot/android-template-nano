@@ -56,11 +56,11 @@ define([
         },
 
         created: function() {
-            commit(this, "updateCanGoToMenu", false);
+            commit("updateCanGoToMenu", false);
         },
 
         destroyed: function() {
-            commit(this, "updateCanGoToMenu", true);
+            commit("updateCanGoToMenu", true);
         },
 
         data: function() {

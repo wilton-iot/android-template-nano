@@ -19,10 +19,11 @@ define(function(require) {
 
     var Vue = require("vue");
     var VueRouter = require("vue-router");
+    var routerHolder = require("./common/router/routerHolder");
 
     Vue.use(VueRouter);
 
-    return new VueRouter({
+    var res = new VueRouter({
         linkActiveClass: "active",
         linkExactActiveClass: "active",
         routes: [
@@ -32,4 +33,8 @@ define(function(require) {
             { path: "/exit", component: require("./modules/exit/exit") }
         ]
     });
+
+    routerHolder.set(res);
+
+    return res;
 });

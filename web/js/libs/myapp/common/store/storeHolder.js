@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, alex at staticlibs.net
+ * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-define([
-    "../utils/shortModuleId",
-    "./storeHolder"
-], function(shortModuleId, storeHolder) {
+define([], function() {
     "use strict";
 
-    return function(mod) {
-        var mid = "";
-        if ("string" === typeof(mod)) {
-            mid = mod;
-        } else {
-            mid = shortModuleId(mod);
+    var holder = [null];
+
+    return {
+        get: function() {
+            return holder[0];
+        },
+
+        // called on store creation
+        set: function(store) {
+            if (null !== holder[0]) {
+                throw new Error("Store holder is already initialized");
+            }
+            if ("undefined" === typeof(store)) {
+                throw new Error("Invalid store specified");
+            }
+            holder[0] = store;
         }
-        var store = storeHolder.get();
-        return store.state[mid];
     };
 });

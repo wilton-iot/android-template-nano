@@ -15,13 +15,12 @@
  */
 
 define([
-], function() {
+    "./storeHolder"
+], function(storeHolder) {
     "use strict";
 
     return function(action, params) {
-        // late binding
-        require(["myapp/store"], function(store) {
-            store.dispatch(action, params);
-        });
+        var store = storeHolder.get();
+        store.dispatch(action, params);
     };
 });

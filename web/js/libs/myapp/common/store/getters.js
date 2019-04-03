@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, alex at staticlibs.net
+ * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,14 @@ define([
             mid = shortModuleId(mod);
         }
         var store = storeHolder.get();
-        return store.state[mid];
+        var getters = store.getters;
+        var res = {};
+        for (var gt in getters) {
+            if (0 === gt.lastIndexOf(mid + "/", 0)) {
+                var prop = gt.substring(mid.length + 1);
+                res[prop] = getters[gt];
+            }
+        }
+        return res;
     };
 });

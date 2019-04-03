@@ -15,16 +15,15 @@
  */
 
 define([
-    "./history"
-], function(history) {
+    "./history",
+    "./routerHolder"
+], function(history, routerHolder) {
     "use strict";
 
     return function(path) {
         history.push(path);
-        // late binding
-        require(["myapp/router"], function(router) {
-            router.push(path);
-            history.updateState();
-        });
+        var router = routerHolder.get();
+        router.push(path);
+        history.updateState();
     };
 });

@@ -17,7 +17,7 @@
 define([
     "myapp/common/backendcall",
     "myapp/common/store/checkActionError"
-], function(backendcall) {
+], function(backendcall, checkActionError) {
     "use strict";
 
     return function(context) {

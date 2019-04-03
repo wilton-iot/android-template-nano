@@ -15,10 +15,12 @@
  */
 
 define([
-], function() {
+    "./storeHolder"
+], function(storeHolder) {
     "use strict";
 
-    return function(thiz, mutation, params) {
-        return thiz.$store.commit(mutation, params);
+    return function(mutation, params) {
+        var store = storeHolder.get();
+        return store.commit(mutation, params);
     };
 });

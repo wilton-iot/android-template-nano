@@ -15,8 +15,8 @@
  */
 
 define([
-    "myapp/common/store/commitAsync"
-], function(commitAsync) {
+    "myapp/common/store/commit"
+], function(commit) {
     "use strict";
 
     // manual history tracing is required to 
@@ -85,8 +85,8 @@ define([
         },
 
         updateState: function() {
-            commitAsync("updateCanGoBack", canGoBack());
-            commitAsync("updateCanGoForward", canGoForward());
+            commit("updateCanGoBack", canGoBack());
+            commit("updateCanGoForward", canGoForward());
         },
 
         dump: function() {

@@ -15,17 +15,17 @@
  */
 
 define([
-    "./history"
-], function(history) {
+    "./history",
+    "./routerHolder"
+], function(history, routerHolder) {
     "use strict";
 
     return function() {
         var path = history.forwardPath();
         if (path) {
-            require(["myapp/router"], function(router) {
-                router.push(path);
-                history.updateState();
-            });
+            var router = routerHolder.get();
+            router.push(path);
+            history.updateState();
         }
     };
 });

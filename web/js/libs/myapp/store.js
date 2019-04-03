@@ -19,10 +19,11 @@ define(function(require) {
 
     var Vue = require("vue");
     var Vuex = require("vuex");
+    var storeHolder = require("./common/store/storeHolder");
 
     Vue.use(Vuex);
 
-    return new Vuex.Store({
+    var res = new Vuex.Store({
         strict: true,
 
         actions: {
@@ -47,6 +48,10 @@ define(function(require) {
                 canGoToMenu: true
             }
         }
-
     });
+    
+    storeHolder.set(res);
+
+    return res;
+
 });

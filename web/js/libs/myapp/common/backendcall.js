@@ -17,9 +17,10 @@
 define([
     "wsClient",
     "myapp/common/router/pushBack",
+    "myapp/common/utils/formatError",
     "myapp/common/utils/isEmptyObject",
     "json!myapp/config.json"
-], function(wsClient, pushBack, isEmptyObject, cf) {
+], function(wsClient, pushBack, formatError, isEmptyObject, cf) {
     "use strict";
 
     var socket = null;

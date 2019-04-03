@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, alex at staticlibs.net
+ * Copyright 2019, alex at staticlibs.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-define([
-], function() {
+define([], function() {
     "use strict";
 
-    return function(mutation, params) {
-        require(["myapp/store"], function(store) {
-            store.commit(mutation, params);
-        });
+    var holder = [null];
+
+    return {
+        get: function() {
+            return holder[0];
+        },
+
+        // called on router creation
+        set: function(router) {
+            if (null !== holder[0]) {
+                throw new Error("Router holder is already initialized");
+            }
+            if ("undefined" === typeof(router)) {
+                throw new Error("Invalid router specified");
+            }
+            holder[0] = router;
+        }
     };
 });
